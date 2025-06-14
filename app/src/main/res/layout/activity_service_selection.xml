@@ -6,65 +6,65 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5"
     android:id="@+id/main"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.services.ServiceSelectionActivity">
 
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Quick Access Services"
-        android:textColor="#333333"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:background="#4CAF50"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="Select Services"
+        app:titleTextColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/selectedCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Selected: 0/8"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/selectedServicesRecyclerView"
+        android:id="@+id/servicesRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_background"
-        android:elevation="4dp"
-        android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/addServiceButton"
+        android:elevation="2dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/doneButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText" />
-
-    <TextView
-        android:id="@+id/emptyStateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No services selected\nTap 'Add Services' to get started"
-        android:textAlignment="center"
-        android:textColor="#888888"
-        android:textSize="16sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/selectedServicesRecyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/selectedServicesRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/selectedServicesRecyclerView"
-        app:layout_constraintTop_toTopOf="@+id/selectedServicesRecyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/selectedCountText" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addServiceButton"
+        android:id="@+id/doneButton"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="#4CAF50"
-        android:text="Add Services"
+        android:text="Done"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius="8dp"
-        app:icon="@android:drawable/ic_input_add"
+        app:icon="@android:drawable/ic_menu_save"
         app:iconTint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
