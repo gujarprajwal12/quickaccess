@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.quickaccess.app.data.model.Service
 import com.quickaccess.app.data.model.SubService
 
+
 class SharedViewModel : ViewModel() {
 
     private val _selectedSubServices = MutableLiveData<MutableList<SubService>>(mutableListOf())
@@ -75,7 +76,7 @@ class SharedViewModel : ViewModel() {
                 subServices = listOf(
                     SubService(17, "Online Courses", android.R.drawable.ic_menu_slideshow, 5),
                     SubService(18, "Tutoring", android.R.drawable.ic_menu_edit, 5),
-                    SubService(19, "Language Learning", android.R.drawable.ic_menu_help, 5),
+                    SubService(19, "Help", android.R.drawable.ic_menu_help, 5),
                     SubService(20, "Skill Development", android.R.drawable.ic_menu_manage, 5)
                 )
             )
@@ -84,7 +85,7 @@ class SharedViewModel : ViewModel() {
     }
 
     fun addSelectedSubService(subService: SubService): Boolean {
-        val currentList = _selectedSubServices.value ?: mutableListOf()
+        val currentList = _selectedSubServices.value?.toMutableList() ?: mutableListOf()
         if (currentList.size >= MAX_SELECTED_SERVICES) {
             return false
         }
@@ -98,7 +99,7 @@ class SharedViewModel : ViewModel() {
     }
 
     fun removeSelectedSubService(subService: SubService) {
-        val currentList = _selectedSubServices.value ?: mutableListOf()
+        val currentList = _selectedSubServices.value?.toMutableList() ?: mutableListOf()
         currentList.removeAll { it.id == subService.id }
         _selectedSubServices.value = currentList
     }
@@ -122,5 +123,10 @@ class SharedViewModel : ViewModel() {
 
     fun canSelectMore(): Boolean {
         return getSelectedCount() < MAX_SELECTED_SERVICES
+    }
+
+    fun refreshSelectedServices() {
+        // Trigger LiveData update
+        _selectedSubServices.value = _selectedSubServices.value
     }
 }

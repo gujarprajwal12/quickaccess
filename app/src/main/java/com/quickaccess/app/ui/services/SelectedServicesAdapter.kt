@@ -10,6 +10,7 @@ import androidx.viewbinding.ViewBinding
 import com.quickaccess.app.R
 import com.quickaccess.app.data.model.SubService
 
+
 class SelectedServicesAdapter(
     private val onRemoveClick: (SubService) -> Unit
 ) : RecyclerView.Adapter<SelectedServicesAdapter.ViewHolder>() {

@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.quickaccess.MyApplication
 import com.quickaccess.app.R
 import com.quickaccess.app.databinding.ActivityMainBinding
 import com.quickaccess.app.ui.services.SelectedServicesAdapter
@@ -19,6 +20,7 @@ import com.quickaccess.app.viewmodel.SharedViewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     private lateinit var viewModel: SharedViewModel
     private lateinit var selectedServicesAdapter: SelectedServicesAdapter
     private lateinit var selectedServicesRecyclerView: androidx.recyclerview.widget.RecyclerView
@@ -50,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        viewModel = (application as MyApplication).sharedViewModel
     }
 
     private fun setupRecyclerView() {
@@ -90,7 +92,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Refresh the selected services when returning from service selection
+        // Force refresh when returning from service selection
+        viewModel.selectedSubServices.value?.let { services ->
+            selectedServicesAdapter.updateServices(services)
+            updateEmptyState(services.isEmpty())
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        // Additional refresh on restart
         viewModel.selectedSubServices.value?.let { services ->
             selectedServicesAdapter.updateServices(services)
             updateEmptyState(services.isEmpty())

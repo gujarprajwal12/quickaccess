@@ -14,8 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.quickaccess.app.R
 import com.quickaccess.app.viewmodel.SharedViewModel
 import androidx.appcompat.widget.Toolbar
-
-
+import com.quickaccess.MyApplication
 
 
 class ServiceSelectionActivity : AppCompatActivity() {
@@ -46,6 +45,7 @@ class ServiceSelectionActivity : AppCompatActivity() {
         observeViewModel()
     }
 
+
     private fun initViews() {
         toolbar = findViewById(R.id.toolbar)
         selectedCountText = findViewById(R.id.selectedCountText)
@@ -54,7 +54,7 @@ class ServiceSelectionActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        viewModel = (application as MyApplication).sharedViewModel
     }
 
     private fun setupToolbar() {
@@ -80,6 +80,8 @@ class ServiceSelectionActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         doneButton.setOnClickListener {
+            // Refresh the ViewModel before finishing
+            viewModel.refreshSelectedServices()
             finish()
         }
     }
